@@ -9,4 +9,8 @@ dependencies = [
 ]
 
 [project.scripts]
-j2x = "j2express:cli"
+j2x = "j2express:main"
+
+[build-system]
+requires = ["flit_core<4"]
+build-backend = "flit_core.buildapi"
