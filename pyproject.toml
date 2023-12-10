@@ -9,4 +9,4 @@ dependencies = [
 ]
 
 [project.scripts]
-j2x = "main:cli"
+j2x = "j2express:cli"
