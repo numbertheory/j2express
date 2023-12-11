@@ -29,6 +29,6 @@ Show help and options:
 
 - [X] process templates with exported env variables being represented as: `{{ VARIABLE_NAME }}`
 - [X] install and make available on the command line
-- [ ] make available on PyPI
+- [X] make available on PyPI
 - [ ] colorized output for troubleshooting variables
 - [ ] support for arrays from command line
