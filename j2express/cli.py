@@ -24,12 +24,15 @@ def find_upper_case_envs(line):
               help="Set renderer to lstrip_blocks")
 def main(filename, lstrip_blocks, trim_blocks):
     env = Environment(lstrip_blocks=lstrip_blocks, trim_blocks=trim_blocks)
+    env.filters['enviro_value'] = enviro_value
     with open(filename, 'r') as f:
         template_lines = f.readlines()
     for i in range(0, len(template_lines)):
         env_vars = find_upper_case_envs(template_lines[i])
         for e_var in env_vars:
-            template_lines[i].replace(e_var, e_var)
+            clean_evar = re.sub(r"[{}\s]", "", e_var)
+            template_lines[i] = template_lines[i].replace(
+                e_var, f"{{{{ \"\" | enviro_value('{clean_evar}') }}}}")
     template = env.from_string("".join(template_lines))
     click.echo(template.render())
 
