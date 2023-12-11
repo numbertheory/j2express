@@ -1,11 +1,37 @@
 import click
+from jinja2 import Environment
+import os
+import re
+
+
+def enviro_value(value, key):
+    return os.getenv(key, value)
+
+
+def find_upper_case_envs(line):
+    pattern = r"\{\{ ([A-Z0-9]+) \}\}"
+    matches = re.findall(pattern, line)
+    return [f"{{{{ {x} }}}}" for x in matches]
 
 
 @click.command()
 @click.option('-f', '--filename', help='J2 Template to process')
-def main(filename):
-    click.echo("Hello, World!")
-    click.echo(filename)
+@click.option('--trim-blocks/--no-trim-blocks', show_default=True,
+              default=False,
+              help="Set renderer to trim_blocks")
+@click.option('--lstrip-blocks/--no-lstrip-blocks', show_default=True,
+              default=True,
+              help="Set renderer to lstrip_blocks")
+def main(filename, lstrip_blocks, trim_blocks):
+    env = Environment(lstrip_blocks=lstrip_blocks, trim_blocks=trim_blocks)
+    with open(filename, 'r') as f:
+        template_lines = f.readlines()
+    for i in range(0, len(template_lines)):
+        env_vars = find_upper_case_envs(template_lines[i])
+        for e_var in env_vars:
+            template_lines[i].replace(e_var, e_var)
+    template = env.from_string("".join(template_lines))
+    click.echo(template.render())
 
 
 if __name__ == '__main__':
