@@ -24,6 +24,7 @@ Show help and options:
 
 - `--trim-blocks / --no-trim-blocks`: Set Jinja's environment to trim whitespace. (default: --no-trim-blocks) 
 - `--lstrip-blocks / --no-lstrip-blocks`: Set Jinja's environment to remove whitespace from the left. (default: --lstrip-blocks)
+- `--strict / --no-strict`: Set to fail the render process if an environmental variable is referenced that is not set (default: --no-strict)
 
 ### Goals
 
