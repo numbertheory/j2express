@@ -37,9 +37,13 @@ def process_file(filename):
 def main(filename, lstrip_blocks, trim_blocks):
     env = Environment(lstrip_blocks=lstrip_blocks, trim_blocks=trim_blocks)
     env.filters['enviro_value'] = enviro_value
-    template_lines = process_file(filename)
-    template = env.from_string("".join(template_lines))
-    click.echo(template.render())
+    if filename:
+        template_lines = process_file(filename)
+        template = env.from_string("".join(template_lines))
+        click.echo(template.render())
+    else:
+        click.echo("Filename to render required. See j2x --help for details.")
+        exit(1)
 
 
 if __name__ == '__main__':
