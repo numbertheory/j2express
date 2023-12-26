@@ -1,6 +1,6 @@
 [project]
 name = "j2express"
-version = "0.4.0"
+version = "0.5.0"
 description = "CLI for Jinja2 written from the ground up"
 readme = "README.md"
 requires-python = ">=3.9"
